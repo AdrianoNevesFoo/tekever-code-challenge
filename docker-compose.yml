@@ -48,3 +48,7 @@ services:
       KEYCLOAK_REALM: Teste
       KEYCLOAK_REALM_PUBLIC_KEY: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA6f8bbd5yXYMDyDWAYVeCVjzWSr+E0wYAWeBCW+jxvGMeP4THgk1dw8CACls1Gd1m7Wr2O4vy89ENmTJIbOg3Xg2Et6WAHqXQ/ffuCEHX5emHwQnp+GrbcfEVZUZK08bwlt9ImN1Y+xzcUqV4UD1oIy6IZt6qOWuUAx29vL1//rWU8/MqwnjaCpi+QssQl2T9N0UiuvknVN5XevZ9MtwK6OHR5+jUm7a4cO2MKXQx5VIUKBhi0mTvrTIv3fcuEUeEnboZ7M6JQVMKM4kmCnPByTqm/9lfdHg3fA5btdEQCro6WEx7RpNhttzmo6Skt9PjsRCYEevR56vGZyNitM7WswIDAQAB
       DATABASE_URL: "mysql://root:root@localhost:3906/tekever-database?schema=public"
+volumes:
+  redis:
+    driver: local
+  db:
