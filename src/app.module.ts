@@ -19,12 +19,12 @@ import * as redisStore from "cache-manager-redis-store";
 const ENV = process.env.NODE_ENV;
 @Module({
   imports: [
-    CacheModule.register({
-      isGlobal: true,
-      store: redisStore,
-      host: "localhost",
-      port: 6379,
-    }),
+    // CacheModule.register({
+    //   isGlobal: true,
+    //   store: redisStore,
+    //   host: "localhost",
+    //   port: 6379,
+    // }),
     ConfigModule.forRoot({
       envFilePath: !ENV ? ".env.dev" : `.${ENV}.env`,
     }),
