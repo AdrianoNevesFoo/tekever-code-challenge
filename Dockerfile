@@ -1,27 +1,26 @@
-FROM node:16-slim
+FROM node:16-slim AS builder
 
-# create root application folder
+# Create app directory
 WORKDIR /app
 
-# copy configs to /app folder
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
 COPY package*.json ./
-COPY tsconfig.json ./
-COPY tsconfig.build.json ./
-COPY prisma ./prisma
-# copy source code to /app/src folder
-COPY src /app/src
-COPY .env ./
-COPY start.sh ./
-# check files list
-RUN ls -a
+COPY prisma ./prisma/
 
-RUN npm i -g @nestjs/schematics
+# Install app dependencies
 RUN npm install
-RUN apt-get update && apt-get install -y openssl libssl-dev
-RUN npx prisma generate --schema ./prisma/schema.prisma
+
+COPY . .
+
 RUN npm run build
 
+FROM node:16-slim
+
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package*.json ./
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/prisma ./prisma
+
 EXPOSE 9000
-
-
-CMD ["./start.sh"]
+# 👇 new migrate and start app script
+CMD [  "npm", "run", "start:migrate:prod" ]
