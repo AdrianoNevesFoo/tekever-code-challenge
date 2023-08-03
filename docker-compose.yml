@@ -6,7 +6,6 @@ services:
     image: "mysql/mysql-server:8.0"
     ports:
       - "3306:3306"
-    env_file: .env
     environment:
       MYSQL_ROOT_PASSWORD: "root"
       MYSQL_ROOT_HOST: "%"
@@ -21,7 +20,6 @@ services:
   redis:
     container_name: cache
     image: redis
-    env_file: .env
     ports:
       - "6379:6379"
     volumes:
@@ -35,7 +33,6 @@ services:
       - redis
     ports:
       - "9000:9000"
-    env_file: .env
     environment:
       NODE_ENV: hml
       PORT: 9000
