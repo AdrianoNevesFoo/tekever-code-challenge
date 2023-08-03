@@ -13,7 +13,7 @@ import {
 } from "nest-keycloak-connect";
 import { APP_FILTER, APP_GUARD } from "@nestjs/core";
 import { AllExceptionsFilter } from "./shared/core/filters/AllExceptions.filter";
-import { CoreModule } from "./modules/tvShows/core.module";
+import { CoreModule } from "./modules/core/core.module";
 import * as redisStore from "cache-manager-redis-store";
 
 const ENV = process.env.NODE_ENV;

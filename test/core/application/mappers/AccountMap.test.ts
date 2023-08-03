@@ -1,4 +1,4 @@
-import { AccountDomain } from "src/modules/tvShows/domain/entity/AccountDomain";
+import { AccountDomain } from "src/modules/core/domain/entity/AccountDomain";
 import { faker } from "@faker-js/faker";
 import { AccountMapper } from "src/modules/core/application/mappers/AccountMap";
 import {

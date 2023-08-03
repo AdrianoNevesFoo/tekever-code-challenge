@@ -1,8 +1,8 @@
 import { Injectable } from "@nestjs/common";
 import { EventEmitter2 } from "@nestjs/event-emitter";
 import { Episode } from "@prisma/client";
-import { EpisodeMapper } from "src/modules/tvShows/application/mappers/EpisodeMap";
-import { EpisodeDomain } from "src/modules/tvShows/domain/entity/EpisodeDomain";
+import { EpisodeMapper } from "src/modules/core/application/mappers/EpisodeMap";
+import { EpisodeDomain } from "src/modules/core/domain/entity/EpisodeDomain";
 import { BaseRepository } from "src/shared/core/Base.repository";
 import { PrismaRepository } from "src/shared/infra/database/prisma/PrismaRepository";
 import { IEpisodeRepo } from "../IEpisodeRepo";

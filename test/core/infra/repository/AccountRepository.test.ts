@@ -2,7 +2,7 @@ import { Test } from "@nestjs/testing";
 import { EventEmitter2 } from "@nestjs/event-emitter";
 import { accountProps, accountSavedMock } from "test/mocks/core/AccountMocks";
 import { PrismaRepository } from "src/shared/infra/database/prisma/PrismaRepository";
-import { AccountDomain } from "src/modules/tvShows/domain/entity/AccountDomain";
+import { AccountDomain } from "src/modules/core/domain/entity/AccountDomain";
 
 import { MockContext, Context, createMockContext } from "../../../context";
 import { AccountRepository } from "src/modules/core/infra/repository/impl/AccountRepository";

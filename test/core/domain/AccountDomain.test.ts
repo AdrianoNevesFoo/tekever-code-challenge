@@ -1,4 +1,4 @@
-import { AccountDomain } from "src/modules/tvShows/domain/entity/AccountDomain";
+import { AccountDomain } from "src/modules/core/domain/entity/AccountDomain";
 import { accountProps } from "test/mocks/core/AccountMocks";
 
 describe("AccountDomain", () => {

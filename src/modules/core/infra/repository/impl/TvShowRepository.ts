@@ -1,8 +1,8 @@
 import { Injectable } from "@nestjs/common";
 import { EventEmitter2 } from "@nestjs/event-emitter";
 import { TvShow } from "@prisma/client";
-import { TvShowMapper } from "src/modules/tvShows/application/mappers/TvShowMap";
-import { TvShowDomain } from "src/modules/tvShows/domain/entity/TvShowDomain";
+import { TvShowMapper } from "src/modules/core/application/mappers/TvShowMap";
+import { TvShowDomain } from "src/modules/core/domain/entity/TvShowDomain";
 import { BaseRepository } from "src/shared/core/Base.repository";
 import { PrismaRepository } from "src/shared/infra/database/prisma/PrismaRepository";
 import { ITvShowRepo } from "../ITvShowRepo";

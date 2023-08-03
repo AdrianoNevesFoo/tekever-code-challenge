@@ -1,8 +1,8 @@
 import { Injectable } from "@nestjs/common";
 import { EventEmitter2 } from "@nestjs/event-emitter";
 import { Actor } from "@prisma/client";
-import { ActorMapper } from "src/modules/tvShows/application/mappers/ActorMap";
-import { ActorDomain } from "src/modules/tvShows/domain/entity/ActorDomain";
+import { ActorMapper } from "src/modules/core/application/mappers/ActorMap";
+import { ActorDomain } from "src/modules/core/domain/entity/ActorDomain";
 import { BaseRepository } from "src/shared/core/Base.repository";
 import { PrismaRepository } from "src/shared/infra/database/prisma/PrismaRepository";
 import { IActorRepo } from "../IActorRepo";
