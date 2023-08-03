@@ -18,7 +18,7 @@ RUN npm i -g @nestjs/schematics
 RUN npm install
 RUN apt-get update && apt-get install -y openssl libssl-dev
 RUN npx prisma generate --schema ./prisma/schema.prisma
-RUN npx prisma db push
+RUN npx prisma db push --schema ./prisma/schema.prisma
 RUN npm run build
 
 EXPOSE 9000
