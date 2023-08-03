@@ -23,7 +23,7 @@ services:
     image: redis
     env_file: .env
     ports:
-      - 6379:6379
+      - "6379:6379"
     volumes:
       - redis:/data
 
