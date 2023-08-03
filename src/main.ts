@@ -9,10 +9,9 @@ import { AllExceptionsFilter } from "./shared/core/filters/AllExceptions.filter"
 import { EventEmitter2 } from "@nestjs/event-emitter";
 
 async function bootstrap() {
-  const app = await NestFactory.create<NestExpressApplication>(
-    AppModule,
-    JSON.parse(process.env.FACTORY_CORS_CONFIG || "")
-  );
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, {
+    cors: false,
+  });
 
   const httpAdapter = app.get(HttpAdapterHost);
   const emitter = app.get<EventEmitter2>(EventEmitter2);
