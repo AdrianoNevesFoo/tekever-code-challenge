@@ -11,7 +11,7 @@ COPY prisma ./prisma
 # copy source code to /app/src folder
 COPY src /app/src
 COPY .env ./
-COPY .start.sh ./
+COPY start.sh ./
 # check files list
 RUN ls -a
 
