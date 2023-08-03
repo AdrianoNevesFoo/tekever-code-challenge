@@ -10,6 +10,7 @@ COPY tsconfig.build.json ./
 COPY prisma ./prisma
 # copy source code to /app/src folder
 COPY src /app/src
+COPY .env ./
 
 # check files list
 RUN ls -a
