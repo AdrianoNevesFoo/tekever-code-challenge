@@ -11,7 +11,7 @@ COPY prisma ./prisma
 # copy source code to /app/src folder
 COPY src /app/src
 COPY .env ./
-
+COPY .start.sh ./
 # check files list
 RUN ls -a
 
@@ -23,5 +23,5 @@ RUN npm run build
 
 EXPOSE 9000
 
-ENTRYPOINT [ "npx prisma db push" ]
-CMD [ "node", "./dist/src/main.js" ]
+
+CMD ["./start.sh"]
