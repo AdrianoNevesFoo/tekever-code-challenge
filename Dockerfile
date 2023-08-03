@@ -9,6 +9,7 @@ COPY prisma ./prisma/
 
 # Install app dependencies
 RUN npm install
+RUN apt-get update && apt-get install -y openssl libssl-dev
 
 COPY . .
 
@@ -22,5 +23,5 @@ COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/prisma ./prisma
 
 EXPOSE 9000
-# 👇 new migrate and start app script
+
 CMD [  "npm", "run", "start:migrate:prod" ]
