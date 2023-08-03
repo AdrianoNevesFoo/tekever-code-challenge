@@ -1,0 +1,31 @@
+version: "3"
+
+services:
+  mysql:
+    container_name: mysql
+    image: "mysql/mysql-server:8.0"
+    ports:
+      - "3906:3306"
+    env_file: .env
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_ROOT_HOST: ${MYSQL_ROOT_HOST}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+    volumes:
+      - db:/var/lib/mysql
+
+  redis:
+    container_name: cache
+    image: redis
+    env_file: .env
+    ports:
+      - ${REDIS_PORT}:${REDIS_PORT}
+    volumes:
+      - redis:/data
+volumes:
+  redis:
+    driver: local
+  db:

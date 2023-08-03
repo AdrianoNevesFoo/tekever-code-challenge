@@ -1,0 +1,152 @@
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Inject,
+  Param,
+  Post,
+  Query,
+  Res,
+  UseInterceptors,
+} from "@nestjs/common";
+import {
+  ApiBody,
+  ApiHeader,
+  ApiOperation,
+  ApiParam,
+  ApiQuery,
+  ApiResponse,
+  ApiTags,
+} from "@nestjs/swagger";
+import { AuthInterceptor } from "src/shared/core/interceptors/Auth.interceptor";
+import { BaseEntityController } from "src/shared/infra/controller/BaseEntityController";
+import { Response } from "express";
+import { Public } from "nest-keycloak-connect";
+import { TvShowRepository } from "../repository/impl/TvShowRepository";
+import { InvalidCredentialsResponseDTO } from "src/modules/auth/infra/dtos/AccessTokenDTO";
+import { UnexpecteErrorDTO } from "src/shared/infra/controller/dtos/BaseDTO";
+import {
+  CreateTvShowDTO,
+  CreateTvShowResponseDTO,
+  TvShowDetailsResponseDTO,
+} from "./dtos/TvShowDTO";
+import { CreateTvShowUseCase } from "../../application/usecases/CreateTvShowUseCase";
+import TvShowQuery from "../../application/query/TvShowQuery";
+import { DeleteTvShowUseCase } from "../../application/usecases/DeleteTvShowUseCase";
+
+@ApiTags("tvshow")
+@Controller("tvshow")
+@UseInterceptors(AuthInterceptor)
+export class TvShowController extends BaseEntityController {
+  constructor(
+    @Inject(TvShowRepository)
+    private tvShowRepository: TvShowRepository,
+    @Inject(TvShowQuery)
+    private tvShowQuery: TvShowQuery,
+    private createTvShowUseCase: CreateTvShowUseCase,
+    private deleteTvShowUseCase: DeleteTvShowUseCase
+  ) {
+    super(tvShowRepository);
+  }
+
+  @Post("")
+  @Public()
+  @ApiHeader({
+    name: "Authorization",
+    description: "Bearer token",
+    required: true,
+  })
+  @ApiOperation({
+    summary: "Create new TvShow.",
+    description: "Create new TV Show endpoint. Requires authentication.",
+  })
+  @ApiResponse({
+    status: 200,
+    description: "Created entity",
+    type: CreateTvShowResponseDTO,
+  })
+  @ApiResponse({
+    status: 403,
+    description: "Invalid user credentials",
+    type: InvalidCredentialsResponseDTO,
+  })
+  @ApiResponse({
+    status: 500,
+    description: "Invalid user credentials",
+    type: UnexpecteErrorDTO,
+  })
+  @ApiBody({ type: CreateTvShowDTO, required: true })
+  async create(@Res() res: Response, @Body() dto: CreateTvShowDTO) {
+    const response = await this.createTvShowUseCase.execute(dto);
+    this.ok(res, response);
+  }
+
+  @Get("details")
+  @Public()
+  @ApiHeader({
+    name: "Authorization",
+    description: "Bearer token",
+    required: true,
+  })
+  @ApiQuery({
+    name: "name",
+    description: "Some actor name",
+  })
+  @ApiOperation({
+    summary: "Details",
+    description: "Show detail of an especific Tv Show.",
+  })
+  @ApiResponse({
+    status: 200,
+    description: "Created entity",
+    type: TvShowDetailsResponseDTO,
+  })
+  @ApiResponse({
+    status: 403,
+    description: "Invalid user credentials",
+    type: InvalidCredentialsResponseDTO,
+  })
+  @ApiResponse({
+    status: 500,
+    description: "Invalid user credentials",
+    type: UnexpecteErrorDTO,
+  })
+  async showDetails(@Res() res: Response, @Query("name") name: string) {
+    if (!name) return this.ok(res, []);
+    const result = await this.tvShowQuery.getTvShowDetails(name);
+    this.ok(res, result);
+  }
+
+  @Delete("/:id")
+  @Public()
+  @ApiHeader({
+    name: "Authorization",
+    description: "Bearer token",
+    required: true,
+  })
+  @ApiOperation({
+    summary: "Delete",
+    description: "Delete specific Tv Show",
+  })
+  @ApiResponse({
+    status: 200,
+    description: "Success",
+  })
+  @ApiResponse({
+    status: 403,
+    description: "Invalid user credentials",
+    type: InvalidCredentialsResponseDTO,
+  })
+  @ApiResponse({
+    status: 500,
+    description: "Invalid user credentials",
+    type: UnexpecteErrorDTO,
+  })
+  @ApiParam({ name: "id", type: String, description: "entity id" })
+  async delete(@Res() res: Response, @Param() params: any) {
+    if (!params.id) return this.ok(res, []);
+    await this.deleteTvShowUseCase.execute(params.id);
+    this.ok(res, "success");
+  }
+}

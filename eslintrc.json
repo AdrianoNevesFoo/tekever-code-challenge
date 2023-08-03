@@ -1,0 +1,8 @@
+{
+  "extends": "plugin:nestjs/recommended",
+  "plugins": ["unused-imports"],
+  "rules": {
+    "unused-imports/no-unused-imports": "error",
+    "react-hooks/exhaustive-deps": "off"
+  }
+}

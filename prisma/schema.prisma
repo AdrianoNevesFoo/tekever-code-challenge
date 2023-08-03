@@ -1,0 +1,68 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Audit {
+  entityId   String @id
+  entityName String
+  history    Json?
+}
+
+model TvShow {
+  id                String            @id @default(uuid())
+  name              String
+  releaseDate       String
+  endDate           String
+  country           String
+  productionCompany String
+  genre             String
+  seasons           Int
+  active            Boolean           @default(true)
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+  episodes          Episode[]
+  starring          ActorsOnTvShows[]
+}
+
+model Actor {
+  id              String            @id @default(uuid())
+  name            String
+  age             Int
+  country         String
+  birthDate       String
+  active          Boolean           @default(true)
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  actorsOnTvShows ActorsOnTvShows[]
+}
+
+model Episode {
+  id          String   @id @default(uuid())
+  name        String
+  number      Int
+  description String?  @db.Text
+  time        Float
+  season      Int
+  tvShow      TvShow   @relation(fields: [showId], references: [id])
+  showId      String
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model ActorsOnTvShows {
+  tvShow    TvShow   @relation(fields: [showId], references: [id])
+  showId    String
+  actor     Actor    @relation(fields: [actorId], references: [id])
+  actorId   String
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@id([showId, actorId])
+}
