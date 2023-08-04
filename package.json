@@ -15,7 +15,7 @@
     "start:dev": "env-cmd -f .env nest start --watch",
     "start:debug": "env-cmd -f .env nest start --debug --watch",
     "start:prod": "env-cmd -f prod.env nest start",
-    "start:migrate:prod": "prisma generate && prisma migrate deploy && npm run start",
+    "start:migrate:prod": "npx prisma generate && npm run start",
     "migrate-init": "npx prisma migrate dev --name init",
     "migrate-generate": "npx prisma generate",
     "migrate-dev": "npx prisma migrate dev",
