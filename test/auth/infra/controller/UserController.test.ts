@@ -3,10 +3,10 @@ import { JwtService } from "@nestjs/jwt";
 import { Test } from "@nestjs/testing";
 import { Response } from "express";
 import { ClsService } from "nestjs-cls";
-import { SetupNewPasswordUseCase } from "src/modules/auth/application/usecases/SetupNewPasswordUseCase";
+import { CreateUserUseCase } from "src/modules/auth/application/usecases/CreateUserUseCase";
 import { UserController } from "src/modules/auth/infra/controllers/User.controller";
 import { AuthInterceptor } from "src/shared/core/interceptors/Auth.interceptor";
-import { setupNewPasswordMock } from "test/mocks/auth/UserControllerMocks";
+import { createUserRequestMock } from "test/mocks/auth/UserMocks";
 
 const statusResponseMock = {
   send: jest.fn((x) => x),
@@ -26,7 +26,7 @@ describe("", () => {
       providers: [
         UserController,
         {
-          provide: SetupNewPasswordUseCase,
+          provide: CreateUserUseCase,
           useValue: {
             execute: jest.fn((x) => x),
           },
@@ -68,8 +68,8 @@ describe("", () => {
   });
 
   describe("UserController", () => {
-    it("deve setar um novo password para o usuário e retornar 200", async () => {
-      await userController.setupNewPassword(responseMock, setupNewPasswordMock);
+    it("Deve criar um novo usuário", async () => {
+      await userController.createNewUser(responseMock, createUserRequestMock);
       expect(responseMock.status).toHaveBeenCalledWith(200);
       expect(statusResponseMock.json).toHaveBeenCalled();
     });

@@ -24,29 +24,37 @@ describe("Cria nova conta", () => {
     expect(RealmMaster).toBeDefined();
   });
 
-  describe("Tesete do RolerProvider", () => {
+  describe("Tesete do UserProvider", () => {
     it("Deve criar um usuário", async () => {
       const roleName = "USER";
 
-      const realmMasterRequest = nock("https://keycloak-hml.lbsdigital.com.br")
+      const realmMasterRequest = nock(
+        "https://tekever-keycloak.labsmaisdigital.com.br"
+      )
         .post("/realms/master/protocol/openid-connect/token")
         .reply(200, clientCredentialsTokenResponseMock);
 
-      const createUserResult = nock("https://keycloak-hml.lbsdigital.com.br")
-        .post("/admin/realms/Teste/users")
+      const createUserResult = nock(
+        "https://tekever-keycloak.labsmaisdigital.com.br"
+      )
+        .post("/admin/realms/tekever/users")
         .reply(200, createUserResponseMock);
 
       const resp = await userProvider.create(createUserRequestMock);
-      expect(resp).toEqual(createUserRequestMock);
+      expect(resp).toEqual(createUserResponseMock);
     });
 
     it("Deve tentar criar um usuário", async () => {
-      const realmMasterRequest = nock("https://keycloak-hml.lbsdigital.com.br")
+      const realmMasterRequest = nock(
+        "https://tekever-keycloak.labsmaisdigital.com.br"
+      )
         .post("/realms/master/protocol/openid-connect/token")
         .reply(200, clientCredentialsTokenResponseMock);
 
-      const createUserResult = nock("https://keycloak-hml.lbsdigital.com.br")
-        .post("/admin/realms/Teste/users")
+      const createUserResult = nock(
+        "https://tekever-keycloak.labsmaisdigital.com.br"
+      )
+        .post("/admin/realms/tekever/users")
         .reply(400);
 
       try {
@@ -56,93 +64,19 @@ describe("Cria nova conta", () => {
       }
     });
 
-    it("Deve fazer logout de um usuário", async () => {
-      const userId = "e2566465-2a21-4e1f-81e0-fcb91a8d1484";
-
-      const realmMasterRequest = nock("https://keycloak-hml.lbsdigital.com.br")
-        .post("/realms/master/protocol/openid-connect/token")
-        .reply(200, clientCredentialsTokenResponseMock);
-
-      const logoutUserResult = nock("https://keycloak-hml.lbsdigital.com.br")
-        .post(`/admin/realms/Teste/users/${userId}/logout`)
-        .reply(204);
-
-      expect(
-        await userProvider.logoutUser({
-          realm: "Teste",
-          userId,
-        })
-      ).toBe("");
-    });
-
-    it("Deve tentar fazer logout de um usuário", async () => {
-      const userId = "e2566465-2a21-4e1f-81e0-fcb91a8d1484";
-      const realmMasterRequest = nock("https://keycloak-hml.lbsdigital.com.br")
-        .post("/realms/master/protocol/openid-connect/token")
-        .reply(200, clientCredentialsTokenResponseMock);
-
-      const logoutUserResult = nock("https://keycloak-hml.lbsdigital.com.br")
-        .post(`/admin/realms/Teste/users/${userId}/logout`)
-        .reply(400);
-
-      try {
-        const resp = await userProvider.logoutUser({
-          realm: "Teste",
-          userId,
-        });
-      } catch (err) {
-        expect(err).toBeInstanceOf(Error);
-      }
-    });
-
-    it("Deve trocar a senha de um usuário", async () => {
-      const userId = "e2566465-2a21-4e1f-81e0-fcb91a8d1484";
-
-      const realmMasterRequest = nock("https://keycloak-hml.lbsdigital.com.br")
-        .post("/realms/master/protocol/openid-connect/token")
-        .reply(200, clientCredentialsTokenResponseMock);
-
-      const logoutUserResult = nock("https://keycloak-hml.lbsdigital.com.br")
-        .put(`/admin/realms/Teste/users/${userId}/reset-password`)
-        .reply(200);
-
-      expect(
-        await userProvider.setUpNewPassword({
-          newPassword: "newPassword",
-          userId,
-        })
-      ).toBe("");
-    });
-
-    it("Deve tentar trocar a senha de um usuário", async () => {
-      const userId = "e2566465-2a21-4e1f-81e0-fcb91a8d1484";
-      const realmMasterRequest = nock("https://keycloak-hml.lbsdigital.com.br")
-        .post("/realms/master/protocol/openid-connect/token")
-        .reply(200, clientCredentialsTokenResponseMock);
-
-      const logoutUserResult = nock("https://keycloak-hml.lbsdigital.com.br")
-        .put(`/admin/realms/Teste/users/${userId}/reset-password`)
-        .reply(400);
-
-      try {
-        const resp = await userProvider.setUpNewPassword({
-          newPassword: "newPassword",
-          userId,
-        });
-      } catch (err) {
-        expect(err).toBeInstanceOf(Error);
-      }
-    });
-
     it("Deve buscara um usuário pelo seu email", async () => {
       const email = "fulano@email.com";
 
-      const realmMasterRequest = nock("https://keycloak-hml.lbsdigital.com.br")
+      const realmMasterRequest = nock(
+        "https://tekever-keycloak.labsmaisdigital.com.br"
+      )
         .post("/realms/master/protocol/openid-connect/token")
         .reply(200, clientCredentialsTokenResponseMock);
 
-      const logoutUserResult = nock("https://keycloak-hml.lbsdigital.com.br")
-        .get(`/admin/realms/Teste/users`)
+      const logoutUserResult = nock(
+        "https://tekever-keycloak.labsmaisdigital.com.br"
+      )
+        .get(`/admin/realms/tekever/users`)
         .query({ email: "fulano@email.com" })
         .reply(200);
 
@@ -152,14 +86,31 @@ describe("Cria nova conta", () => {
     it("Deve tentar recuperar um usuário pelo seu email", async () => {
       const email = "fulano@email.com";
       const userId = "e2566465-2a21-4e1f-81e0-fcb91a8d1484";
-      const realmMasterRequest = nock("https://keycloak-hml.lbsdigital.com.br")
+      const realmMasterRequest = nock(
+        "https://tekever-keycloak.labsmaisdigital.com.br"
+      )
         .post("/realms/master/protocol/openid-connect/token")
         .reply(200, clientCredentialsTokenResponseMock);
 
-      const logoutUserResult = nock("https://keycloak-hml.lbsdigital.com.br")
-        .get(`/admin/realms/Teste/users`)
+      const logoutUserResult = nock(
+        "https://tekever-keycloak.labsmaisdigital.com.br"
+      )
+        .get(`/admin/realms/tekever/users`)
         .query({ email: "fulano@email.com" })
         .reply(400);
+
+      try {
+        const resp = await userProvider.getUserByEmail(email);
+      } catch (err) {
+        expect(err).toBeInstanceOf(Error);
+      }
+    });
+
+    it("Deve tentar autenticar como master no decorator RealmMaster", async () => {
+      const email = "fulano@email.com";
+      const realmMasterRequest = nock("https://keycloak-hml.lbsdigital.com.br")
+        .post("/realms/master/protocol/openid-connect/token")
+        .reply(403);
 
       try {
         const resp = await userProvider.getUserByEmail(email);

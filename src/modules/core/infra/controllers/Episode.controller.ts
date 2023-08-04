@@ -40,7 +40,6 @@ export class EpisodeController extends BaseEntityController {
   }
 
   @Post("")
-  @Public()
   @ApiHeader({
     name: "Authorization",
     description: "Bearer token",

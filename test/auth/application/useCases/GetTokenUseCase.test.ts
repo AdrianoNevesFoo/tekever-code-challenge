@@ -58,27 +58,5 @@ describe("Carregando contexto para GetTokenUseCase", () => {
       const result = await getTokenUseCase.execute(passwordTokenMock);
       expect(result).toEqual(passwordTokenResponseMock);
     });
-
-    it("Deve pegar um token do tipo client_credentials", async () => {
-      const result = await getTokenUseCase.execute(clientCredentialsTokenMock);
-      expect(result).toEqual(clientCredentialsTokenResponseMock);
-    });
-
-    it("Deve tentar pegar um token com um grant_type inexistente", async () => {
-      try {
-        const result = await getTokenUseCase.execute({
-          client_id: "",
-          client_secret: "",
-          username: "fulano@emial.com",
-          password: "123",
-          grant_type: "teste",
-          scope: "",
-        });
-      } catch (err) {
-        expect(err.friendlyMessage).toBe(
-          "Por favor, informe um grant_type permitido para a o uso dessa API."
-        );
-      }
-    });
   });
 });

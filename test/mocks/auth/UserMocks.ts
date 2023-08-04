@@ -1,24 +1,14 @@
 import { faker } from "@faker-js/faker";
 
-export let createUserResponseMock = {
-  accountId: "64b184b6c36d2efdf4f17237",
-  email: "fulanodetal@gmail.com",
-  firstName: "Fulano De Tal",
-  id: "7d53faa1-2d8d-46d0-8f0e-9a201f1a493a",
-  lastName: "",
-  role: "USER",
-  username: "fulanodetal@gmail.com",
+export const createUserRequestMock = {
+  email: "fulano@email.com",
+  name: "Fulano de Tal",
+  password: "123",
 };
 
-export const createUserRequestMock = {
-  username: "Fulano de Tal",
+export const createUserResponseMock = {
   email: "fulano@email.com",
-  firstName: "Fulano de Tal",
-  lastName: "",
-  password: "123",
-  accountId: "64b184b6c36d2efdf4f17237",
-  role: "USER",
-  verified: true,
+  name: "Fulano de Tal",
 };
 
 export const getUserByEmail = {

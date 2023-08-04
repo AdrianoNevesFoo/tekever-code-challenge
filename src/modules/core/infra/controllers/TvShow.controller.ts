@@ -44,14 +44,15 @@ export class TvShowController extends BaseEntityController {
     private tvShowRepository: TvShowRepository,
     @Inject(TvShowQuery)
     private tvShowQuery: TvShowQuery,
+    @Inject(CreateTvShowUseCase)
     private createTvShowUseCase: CreateTvShowUseCase,
+    @Inject(DeleteTvShowUseCase)
     private deleteTvShowUseCase: DeleteTvShowUseCase
   ) {
     super(tvShowRepository);
   }
 
   @Post("")
-  @Public()
   @ApiHeader({
     name: "Authorization",
     description: "Bearer token",
@@ -83,7 +84,6 @@ export class TvShowController extends BaseEntityController {
   }
 
   @Get("details")
-  @Public()
   @ApiHeader({
     name: "Authorization",
     description: "Bearer token",
@@ -119,7 +119,6 @@ export class TvShowController extends BaseEntityController {
   }
 
   @Delete("/:id")
-  @Public()
   @ApiHeader({
     name: "Authorization",
     description: "Bearer token",

@@ -5,9 +5,8 @@ import { UserProvider } from "src/modules/auth/application/providers/User.provid
 import {
   createUserRequestMock,
   createUserResponseMock,
+  IKeycloakUserMock,
 } from "test/mocks/auth/UserMocks";
-import { RolesProvider } from "src/modules/auth/application/providers/Roles.provider";
-import { getUserRoleMock } from "test/mocks/auth/RolesMocks";
 
 export class MockEventEmitter {
   private eventos = {};
@@ -37,13 +36,6 @@ describe("Cria nova conta", () => {
           useValue: new MockEventEmitter(),
         },
         UserProvider,
-        {
-          provide: RolesProvider,
-          useValue: {
-            getRoleByName: jest.fn().mockResolvedValue(getUserRoleMock),
-            addRealmRoleToUser: jest.fn().mockResolvedValue(""),
-          },
-        },
       ],
     }).compile();
     userProvider = module.get<UserProvider>(UserProvider);
@@ -57,6 +49,8 @@ describe("Cria nova conta", () => {
 
   describe("Tesete caso de uso CreateUserUseCase", () => {
     it("Deve criar um usuário", async () => {
+      jest.spyOn(userProvider, "getUserByEmail").mockResolvedValue(undefined);
+
       jest
         .spyOn(userProvider, "create")
         .mockResolvedValue(createUserResponseMock);
@@ -68,12 +62,15 @@ describe("Cria nova conta", () => {
 
     it("Deve tentar criar um usuário", async () => {
       jest
-        .spyOn(userProvider, "create")
-        .mockRejectedValue(new Error("Async error message"));
-
-      expect(await createUserUseCase.execute(createUserRequestMock)).toBe(
-        undefined
-      );
+        .spyOn(userProvider, "getUserByEmail")
+        .mockResolvedValue(IKeycloakUserMock);
+      try {
+        expect(await createUserUseCase.execute(createUserRequestMock)).toBe(
+          undefined
+        );
+      } catch (err) {
+        expect(err.friendlyMessage).toBe("User already exists.");
+      }
     });
   });
 });

@@ -51,7 +51,6 @@ export class ActorController extends BaseEntityController {
   }
 
   @Post("")
-  @Public()
   @ApiHeader({
     name: "Authorization",
     description: "Bearer token",
@@ -83,7 +82,6 @@ export class ActorController extends BaseEntityController {
   }
 
   @Get("details")
-  @Public()
   @ApiHeader({
     name: "Authorization",
     description: "Bearer token",

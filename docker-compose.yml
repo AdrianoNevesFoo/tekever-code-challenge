@@ -36,7 +36,7 @@ services:
     environment:
       NODE_ENV: hml
       PORT: 9000
-      KEYCLOAK_URL: https://keycloak-hml.lbsdigital.com.br
+      KEYCLOAK_URL: https://tekever-keycloak.labsmaisdigital.com.br
       KEYCLOAK_CLIENTID: teste-client
       KEYCLOAK_CLIENT_SECRET: n5yrblbDemIJuPpifH1zn01nMk0RwCAP
       KEYCLOAK_MASTER_USERNAME: admin

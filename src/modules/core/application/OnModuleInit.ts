@@ -50,7 +50,6 @@ export class StartDataBase implements OnModuleInit {
   ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;  
   `;
     const actors = await this.actorRepo.sqlRaw(query);
-    console.log(actors);
   }
 
   private async createTvShow() {
@@ -73,7 +72,6 @@ export class StartDataBase implements OnModuleInit {
   
   `;
     const actors = await this.tvShowRepo.sqlRaw(query);
-    console.log(actors);
   }
 
   private async createAudit() {
@@ -87,7 +85,6 @@ export class StartDataBase implements OnModuleInit {
   ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci; 
   `;
     const actors = await this.auditRepo.sqlRaw(query);
-    console.log(actors);
   }
 
   private async createEpisode() {
@@ -112,7 +109,6 @@ export class StartDataBase implements OnModuleInit {
   ALTER TABLE Episode ADD CONSTRAINT IF NOT EXISTS Episode_showId_fkey FOREIGN KEY (showId) REFERENCES TvShow(id) ON DELETE RESTRICT ON UPDATE CASCADE;
   `;
     const actors = await this.episodeReoo.sqlRaw(query);
-    console.log(actors);
   }
 
   private async createActorsOnTvShow() {

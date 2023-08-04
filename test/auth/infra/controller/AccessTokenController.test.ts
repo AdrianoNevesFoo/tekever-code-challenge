@@ -61,12 +61,8 @@ describe("", () => {
   describe("changePassword", () => {
     it("deve chamar o changePassword e retornar 200", async () => {
       await accessTokenController.login(responseMock, {
-        client_id: "",
-        client_secret: "",
-        scope: "",
         username: "test@test.com",
         password: "123abc",
-        grant_type: "password",
       });
       expect(responseMock.status).toHaveBeenCalledWith(200);
       expect(statusResponseMock.json).toHaveBeenCalled();

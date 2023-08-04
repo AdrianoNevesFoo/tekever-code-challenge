@@ -22,7 +22,7 @@ const ENV = process.env.NODE_ENV;
     CacheModule.register({
       isGlobal: true,
       store: redisStore,
-      host: "redis",
+      host: process.env.REDIS_HOST,
       port: 6379,
     }),
     ConfigModule.forRoot({

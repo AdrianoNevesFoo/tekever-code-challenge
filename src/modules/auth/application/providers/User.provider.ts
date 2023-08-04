@@ -80,7 +80,9 @@ export class UserProvider {
   }
 
   @RealmMaster()
-  public async getUserByEmail(email: string): Promise<IKeycloakUser> {
+  public async getUserByEmail(
+    email: string
+  ): Promise<IKeycloakUser | undefined> {
     const realmTarget = process.env.KEYCLOAK_REALM;
     const requestConfig = {
       headers: {
