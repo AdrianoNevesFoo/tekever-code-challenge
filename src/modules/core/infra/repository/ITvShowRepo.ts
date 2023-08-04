@@ -1,4 +1,5 @@
 import { TvShow } from "@prisma/client";
+import { Sql } from "@prisma/client/runtime";
 import { IPaginationOptions } from "src/shared/core/interfaces/paginationOptions.interface";
 import { TvShowDomain } from "../../domain/entity/TvShowDomain";
 
@@ -7,6 +8,7 @@ export interface ITvShowRepo {
   update(id: string, data: any): Promise<TvShow>;
   findByNameAndProductionCompany(name: string, productionCompany: string);
   delete(id: string): Promise<void>;
+  sqlRaw(query: Sql): Promise<any>;
   paginate(params: {
     options: IPaginationOptions;
     where?: any;

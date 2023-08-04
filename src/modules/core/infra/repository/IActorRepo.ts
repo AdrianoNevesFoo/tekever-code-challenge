@@ -1,4 +1,5 @@
 import { Actor } from "@prisma/client";
+import { Sql } from "@prisma/client/runtime";
 import { IPaginationOptions } from "src/shared/core/interfaces/paginationOptions.interface";
 import { ActorDomain } from "../../domain/entity/ActorDomain";
 
@@ -24,4 +25,5 @@ export interface IActorRepo {
     rejectOnNotFound?: any;
     orderBy?: any;
   }): Promise<any[] | undefined>;
+  sqlRaw(query: Sql): Promise<any>;
 }

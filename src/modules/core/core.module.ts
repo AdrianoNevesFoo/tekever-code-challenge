@@ -1,7 +1,9 @@
 import { forwardRef, Module } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { PrismaRepository } from "src/shared/infra/database/prisma/PrismaRepository";
+import { AuditRepository } from "src/shared/infra/repository/impl/AuditRepository";
 import { SharedModule } from "src/shared/shared.module";
+import { StartDataBase } from "./application/OnModuleInit";
 import ActorQuery from "./application/query/ActorQuery";
 import TvShowQuery from "./application/query/TvShowQuery";
 import { AssociateEpisodeUseCase } from "./application/usecases/AssociateEpisodeUseCase";
@@ -32,6 +34,8 @@ import { TvShowRepository } from "./infra/repository/impl/TvShowRepository";
     ActorQuery,
     DeleteTvShowUseCase,
     ActorsOnTvShowRepository,
+    StartDataBase,
+    AuditRepository,
   ],
 })
 export class CoreModule {}

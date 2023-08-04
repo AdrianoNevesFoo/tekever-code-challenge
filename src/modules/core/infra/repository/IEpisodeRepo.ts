@@ -1,4 +1,5 @@
 import { Episode } from "@prisma/client";
+import { Sql } from "@prisma/client/runtime";
 import { IPaginationOptions } from "src/shared/core/interfaces/paginationOptions.interface";
 import { EpisodeDomain } from "../../domain/entity/EpisodeDomain";
 
@@ -7,6 +8,7 @@ export interface IEpisodeRepo {
   update(id: string, data: any): Promise<Episode>;
   delete(id: string): Promise<void>;
   deleteMany(ids: string[]): Promise<void>;
+  sqlRaw(query: Sql): Promise<any>;
   findByNameAndTvShowId(
     name: string,
     tvShowId: string

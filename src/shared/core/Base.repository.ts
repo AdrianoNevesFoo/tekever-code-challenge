@@ -4,6 +4,7 @@ import { IPaginationOptions } from "./interfaces/paginationOptions.interface";
 import { ClsService, ClsServiceManager } from "nestjs-cls";
 import { EventEmitter2 } from "@nestjs/event-emitter";
 import { Audit } from "../decorators/Audit.decorator";
+import { Sql } from "@prisma/client/runtime";
 
 export class BaseRepository {
   protected clsService: ClsService;
@@ -121,5 +122,13 @@ export class BaseRepository {
     const { where } = params;
     const result = await this.prisma[this.entityName].count({ where });
     return result;
+  }
+
+  async sqlRaw(query: Sql): Promise<any> {
+    try {
+      return await this.prisma.$queryRaw(query);
+    } catch (error) {
+      throw error;
+    }
   }
 }
