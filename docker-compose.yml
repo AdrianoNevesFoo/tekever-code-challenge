@@ -27,7 +27,7 @@ services:
 
   tekever-code-challenge:
     container_name: tekever-api
-    image: "adrianonevesps/tekever:v4"
+    image: "adrianonevesps/tekever:v5"
     depends_on:
       - mysql
       - redis
