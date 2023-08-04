@@ -1,28 +1,26 @@
-FROM node:16-slim AS builder
-
-# Create app directory
-WORKDIR /app
-
-# A wildcard is used to ensure both package.json AND package-lock.json are copied
-COPY package*.json ./
-COPY prisma ./prisma/
-
-# Install app dependencies
-RUN npm install -g npm@9.8.1
-RUN apt-get update && apt-get install -y openssl libssl-dev build-essential libpq-dev
-RUN npm install
-
-COPY . .
-
-RUN npm run build
-
 FROM node:16-slim
 
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package*.json ./
-COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/prisma ./prisma
+# create root application folder
+WORKDIR /app
+
+# copy configs to /app folder
+COPY package*.json ./
+COPY tsconfig.json ./
+COPY tsconfig.build.json ./
+COPY prisma ./prisma
+# copy source code to /app/src folder
+COPY src /app/src
+COPY .env ./
+
+# check files list
+RUN ls -a
+
+RUN npm i -g @nestjs/schematics
+RUN npm install
+RUN apt-get update && apt-get install -y openssl libssl-dev
+RUN npx prisma generate --schema ./prisma/schema.prisma
+RUN npm run build
 
 EXPOSE 9000
 
-CMD [  "npm", "run", "start:migrate:prod" ]
+CMD [ "node", "./dist/src/main.js" ]
