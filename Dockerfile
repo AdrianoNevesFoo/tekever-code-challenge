@@ -9,7 +9,7 @@ COPY prisma ./prisma/
 
 # Install app dependencies
 RUN npm install
-RUN apt-get update && apt-get install -y openssl libssl-dev
+RUN apt-get update && apt-get install -y openssl openssl-dev libc6 
 
 COPY . .
 
