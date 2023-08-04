@@ -8,8 +8,8 @@ COPY package*.json ./
 COPY prisma ./prisma/
 
 # Install app dependencies
+RUN npm install -g npm@9.8.1
 RUN npm install
-RUN apt-get update && apt-get install -y openssl openssl-dev libc6 
 
 COPY . .
 
