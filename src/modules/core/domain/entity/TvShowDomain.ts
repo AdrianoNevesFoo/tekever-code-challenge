@@ -60,4 +60,11 @@ export class TvShowDomain extends Entity<TvShowProps> {
   get episodes(): EpisodeDomain[] | undefined {
     return this.props.episodes;
   }
+
+  addEpisode(episode: EpisodeDomain) {
+    if (!this.props.episodes) this.props.episodes = [];
+
+    if (this.props.episodes.includes(episode)) return;
+    this.props.episodes.push(episode);
+  }
 }

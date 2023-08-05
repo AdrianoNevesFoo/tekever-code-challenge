@@ -40,8 +40,8 @@ export abstract class BaseEntityController extends BaseController {
   }
 
   @Get("paginate")
-  @UseInterceptors(HttpCacheInterceptor)
-  @CacheTTL(300)
+  // @UseInterceptors(HttpCacheInterceptor)
+  // @CacheTTL(300)
   @ApiHeader({
     name: "Authorization",
     description: "Bearer token",
@@ -86,18 +86,21 @@ export abstract class BaseEntityController extends BaseController {
     @Query("page", new DefaultValuePipe(1), ParseIntPipe) page: number = 1,
     @Query("limit", new DefaultValuePipe(10), ParseIntPipe) limit: number = 10,
     @Query("relations", new DefaultValuePipe({})) relations: string,
-    @Query("include", new DefaultValuePipe({})) include: string
+    @Query("include", new DefaultValuePipe({})) include: string,
+    @Query("orderBy", new DefaultValuePipe({})) orderBy: string
   ) {
     console.log("SEM CACHE!");
     const isEmpty = relations && relations.length > 0;
     const isEmptyInclude = include && include.length > 0;
+    const isEmptyOrderBy = orderBy && orderBy.length > 0;
 
     const where = isEmpty ? JSON.parse(relations) : {};
     const includeRelation = isEmptyInclude ? JSON.parse(include) : {};
-
+    const orderByRelation = isEmptyOrderBy ? JSON.parse(orderBy) : {};
     const result = await this.baseRepo.paginate({
       ...where,
       ...includeRelation,
+      ...orderByRelation,
       options: { page, limit },
     });
 

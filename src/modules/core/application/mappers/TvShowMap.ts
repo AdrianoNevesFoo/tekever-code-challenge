@@ -61,7 +61,7 @@ export class TvShowMapper {
     } as Prisma.TvShowCreateInput;
   }
 
-  static buildEpisodes(episodes: EpisodeDomain[]): any[] {
+  static buildEpisodes(episodes: EpisodeDomain[]): any[] | undefined {
     if (episodes) {
       return episodes.map((episode) => {
         return {
@@ -74,6 +74,5 @@ export class TvShowMapper {
         };
       });
     }
-    return [];
   }
 }

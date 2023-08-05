@@ -111,7 +111,6 @@ export class ActorController extends BaseEntityController {
     type: UnexpecteErrorDTO,
   })
   async showDetails(@Res() res: Response, @Query("name") name: string) {
-    if (!name) return this.ok(res, []);
     const result = await this.actorQuery.getActorDetails(name);
     this.ok(res, result);
   }

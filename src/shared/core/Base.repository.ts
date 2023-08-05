@@ -38,7 +38,7 @@ export class BaseRepository {
     rejectOnNotFound?: any;
     orderBy?: any;
   }): Promise<any> {
-    const { options, where, include, select } = params;
+    const { options, where, include, select, orderBy } = params;
     const skipCalc = (options.page - 1) * options.limit;
 
     // let clone = JSON.parse(JSON.stringify(where));
@@ -47,7 +47,7 @@ export class BaseRepository {
     const transaction = await this.prisma.$transaction([
       this.prisma[this.entityName].count({
         where,
-        orderBy: {
+        orderBy: orderBy ?? {
           createdAt: "desc",
         },
       }),
@@ -57,7 +57,7 @@ export class BaseRepository {
         where,
         select,
         include,
-        orderBy: {
+        orderBy: orderBy ?? {
           createdAt: "desc",
         },
       }),

@@ -113,7 +113,6 @@ export class TvShowController extends BaseEntityController {
     type: UnexpecteErrorDTO,
   })
   async showDetails(@Res() res: Response, @Query("name") name: string) {
-    if (!name) return this.ok(res, []);
     const result = await this.tvShowQuery.getTvShowDetails(name);
     this.ok(res, result);
   }
@@ -144,7 +143,6 @@ export class TvShowController extends BaseEntityController {
   })
   @ApiParam({ name: "id", type: String, description: "entity id" })
   async delete(@Res() res: Response, @Param() params: any) {
-    if (!params.id) return this.ok(res, []);
     await this.deleteTvShowUseCase.execute(params.id);
     this.ok(res, "success");
   }

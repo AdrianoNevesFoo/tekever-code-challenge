@@ -5,20 +5,14 @@ import {
   ICreateTvShow,
   ITvShowEpisodes,
 } from "src/shared/interfaces/TvShow.interface";
-import { ActorDomain } from "../../domain/entity/ActorDomain";
 import { EpisodeDomain } from "../../domain/entity/EpisodeDomain";
 import { TvShowDomain } from "../../domain/entity/TvShowDomain";
-import { IActorRepo } from "../../infra/repository/IActorRepo";
-import { ActorRepository } from "../../infra/repository/impl/ActorRepository";
 import { TvShowRepository } from "../../infra/repository/impl/TvShowRepository";
 import { ITvShowRepo } from "../../infra/repository/ITvShowRepo";
-import { ActorMapper } from "../mappers/ActorMap";
 
 @Injectable()
 export class CreateTvShowUseCase implements IUseCase<any, any> {
   constructor(
-    @Inject(ActorRepository)
-    private actorRepo: IActorRepo,
     @Inject(TvShowRepository)
     private tvShowRepo: ITvShowRepo
   ) {}
@@ -41,25 +35,6 @@ export class CreateTvShowUseCase implements IUseCase<any, any> {
   }
 
   private buildEpisodesDomain(episodes: ITvShowEpisodes[]): EpisodeDomain[] {
-    if (episodes) {
-      return episodes.map((episode) => EpisodeDomain.create(episode));
-    }
-    return [];
-  }
-
-  private async getAllActors(ids: string[]) {
-    let result: ActorDomain[] = [];
-    if (ids) {
-      const actors = await this.actorRepo.findAll({
-        where: {
-          id: {
-            in: ids,
-          },
-        },
-      });
-      const actorDomainList = ActorMapper.toDomainList(actors);
-      result = actorDomainList.filter((a) => a) as ActorDomain[];
-    }
-    return result;
+    return episodes.map((episode) => EpisodeDomain.create(episode));
   }
 }

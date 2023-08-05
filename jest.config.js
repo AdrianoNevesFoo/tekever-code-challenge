@@ -32,6 +32,7 @@ module.exports = {
     "/node_modules/",
     "/src/shared/",
     "/src/modules/messages/",
+    "/src/modules/core/application/OnModuleInit.ts",
     ".module.ts",
     "main.ts",
     "eventEmitterHandler.ts",
