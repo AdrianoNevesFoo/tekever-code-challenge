@@ -16,12 +16,12 @@ model Audit {
 model TvShow {
   id                String            @id @default(uuid())
   name              String
-  releaseDate       String
-  endDate           String
-  country           String
-  productionCompany String
-  genre             String
-  seasons           Int
+  releaseDate       String?
+  endDate           String?
+  country           String?
+  productionCompany String?
+  genre             String?
+  seasons           Int?
   active            Boolean           @default(true)
   createdAt         DateTime          @default(now())
   updatedAt         DateTime          @updatedAt
@@ -32,9 +32,9 @@ model TvShow {
 model Actor {
   id              String            @id @default(uuid())
   name            String
-  age             Int
-  country         String
-  birthDate       String
+  age             Int?
+  country         String?
+  birthDate       String?
   active          Boolean           @default(true)
   createdAt       DateTime          @default(now())
   updatedAt       DateTime          @updatedAt
@@ -46,8 +46,8 @@ model Episode {
   name        String
   number      Int
   description String?  @db.Text
-  time        Float
-  season      Int
+  time        Float?
+  season      Int?
   tvShow      TvShow   @relation(fields: [showId], references: [id])
   showId      String
   active      Boolean  @default(true)

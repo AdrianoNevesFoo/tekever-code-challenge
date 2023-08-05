@@ -31,9 +31,9 @@ import {
   CreateTvShowResponseDTO,
   TvShowDetailsResponseDTO,
 } from "./dtos/TvShowDTO";
-import { CreateTvShowUseCase } from "../../application/usecases/CreateTvShowUseCase";
 import TvShowQuery from "../../application/query/TvShowQuery";
 import { DeleteTvShowUseCase } from "../../application/usecases/DeleteTvShowUseCase";
+import { TvShowService } from "../../application/services/Tvshow.service";
 
 @ApiTags("tvshow")
 @Controller("tvshow")
@@ -44,8 +44,8 @@ export class TvShowController extends BaseEntityController {
     private tvShowRepository: TvShowRepository,
     @Inject(TvShowQuery)
     private tvShowQuery: TvShowQuery,
-    @Inject(CreateTvShowUseCase)
-    private createTvShowUseCase: CreateTvShowUseCase,
+    @Inject(TvShowService)
+    private tvShowService: TvShowService,
     @Inject(DeleteTvShowUseCase)
     private deleteTvShowUseCase: DeleteTvShowUseCase
   ) {
@@ -79,7 +79,7 @@ export class TvShowController extends BaseEntityController {
   })
   @ApiBody({ type: CreateTvShowDTO, required: true })
   async create(@Res() res: Response, @Body() dto: CreateTvShowDTO) {
-    const response = await this.createTvShowUseCase.execute(dto);
+    const response = await this.tvShowService.createTvShow(dto);
     this.ok(res, response);
   }
 

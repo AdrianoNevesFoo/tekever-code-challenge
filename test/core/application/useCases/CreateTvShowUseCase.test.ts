@@ -1,20 +1,20 @@
 import { Test } from "@nestjs/testing";
 import { TvShowRepository } from "src/modules/core/infra/repository/impl/TvShowRepository";
 import { createtvShowMock, tvShowSavedMock } from "test/mocks/core/TvShowMocks";
-import { CreateTvShowUseCase } from "src/modules/core/application/usecases/CreateTvShowUseCase";
 import { PrismaRepository } from "src/shared/infra/database/prisma/PrismaRepository";
 import { EventEmitter2 } from "@nestjs/event-emitter";
 import { MockEventEmitter } from "test/mocks/EventEmitterMock";
+import { TvShowService } from "src/modules/core/application/services/Tvshow.service";
 
 describe("Create TvShow", () => {
-  let createTvShowUseCase: CreateTvShowUseCase;
+  let tvShowService: TvShowService;
   let tvShowRepository: TvShowRepository;
   let prismaRepository: PrismaRepository;
 
   beforeEach(async () => {
     const module = await Test.createTestingModule({
       providers: [
-        CreateTvShowUseCase,
+        TvShowService,
         TvShowRepository,
         PrismaRepository,
         {
@@ -23,11 +23,11 @@ describe("Create TvShow", () => {
         },
       ],
     }).compile();
-    createTvShowUseCase = module.get<CreateTvShowUseCase>(CreateTvShowUseCase);
+    tvShowService = module.get<TvShowService>(TvShowService);
   });
 
   it("Deve ter o useCase instanciado", () => {
-    expect(CreateTvShowUseCase).toBeDefined();
+    expect(tvShowService).toBeDefined();
   });
 
   describe("Deve criar um TvShow", () => {
@@ -44,7 +44,7 @@ describe("Create TvShow", () => {
         .spyOn(TvShowRepository.prototype as any, "save")
         .mockResolvedValue(savedTvShow);
 
-      expect(await createTvShowUseCase.execute(createtvShowMock)).toBe(
+      expect(await tvShowService.createTvShow(createtvShowMock)).toBe(
         savedTvShow
       );
     });
@@ -62,7 +62,7 @@ describe("Create TvShow", () => {
         .mockResolvedValue(tvShowSavedMock);
 
       try {
-        await createTvShowUseCase.execute(createtvShowMock);
+        await tvShowService.createTvShow(createtvShowMock);
       } catch (err) {
         expect(err.friendlyMessage).toBe("TvShow already exists!");
       }

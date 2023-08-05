@@ -1,7 +1,7 @@
 {
-  "name": "Boilerplate-API",
+  "name": "TEKEVER-API",
   "version": "2.0.38-RELEASE",
-  "description": " Boilerplate API",
+  "description": " TEKEVER API",
   "author": "",
   "private": true,
   "license": "UNLICENSED",
@@ -34,6 +34,7 @@
     "@nestjs/event-emitter": "^1.0.0",
     "@nestjs/jwt": "^8.0.0",
     "@nestjs/platform-express": "^8.0.9",
+    "@nestjs/schedule": "^2.0.1",
     "@nestjs/swagger": "^5.1.0",
     "@prisma/client": "3.13.0",
     "axios": "^0.21.1",

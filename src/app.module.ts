@@ -15,6 +15,8 @@ import { APP_FILTER, APP_GUARD } from "@nestjs/core";
 import { AllExceptionsFilter } from "./shared/core/filters/AllExceptions.filter";
 import { CoreModule } from "./modules/core/core.module";
 import * as redisStore from "cache-manager-redis-store";
+import { TasksModule } from "./modules/tasks/tasks.module";
+import { ScheduleModule } from "@nestjs/schedule";
 
 const ENV = process.env.NODE_ENV;
 @Module({
@@ -46,8 +48,10 @@ const ENV = process.env.NODE_ENV;
     JwtModule.register({
       publicKey: process.env.KEYCLOAK_REALM_PUBLIC_KEY,
     }),
+    ScheduleModule.forRoot(),
     AuthModule,
     CoreModule,
+    TasksModule,
   ],
   providers: [
     {

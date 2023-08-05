@@ -29,19 +29,15 @@ async function bootstrap() {
 
   app.setViewEngine("ejs");
   const config = new DocumentBuilder()
-    .setTitle("BOILERPLATE-API")
-    .setDescription("BOILERPLATE-API documentation.")
+    .setTitle("TEKEVER-API")
+    .setDescription("TEKEVER-API documentation.")
     .setVersion("1.0.0")
-    .addTag("BOILERPLATE-API")
+    .addTag("TEKEVER-API")
     .build();
   const document = SwaggerModule.createDocument(app, config);
 
   const redocOptions: RedocOptions = {
-    title: "BOILERPLATE-API",
-    logo: {
-      url: "https://komunic.art.br/wp-content/uploads/2020/03/logo-iveco-site.png",
-      altText: "Logo IVECO",
-    },
+    title: "TEKEVER-API",
     sortPropsAlphabetically: true,
     hideDownloadButton: false,
     hideHostname: false,

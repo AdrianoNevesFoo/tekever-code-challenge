@@ -4,16 +4,12 @@ import { JwtService } from "@nestjs/jwt";
 import { Test } from "@nestjs/testing";
 import { Response } from "express";
 import { ClsService } from "nestjs-cls";
-import ActorQuery from "src/modules/core/application/query/ActorQuery";
 import TvShowQuery from "src/modules/core/application/query/TvShowQuery";
-import { CreateActorUseCase } from "src/modules/core/application/usecases/CreateActorUseCase";
-import { CreateTvShowUseCase } from "src/modules/core/application/usecases/CreateTvShowUseCase";
+import { TvShowService } from "src/modules/core/application/services/Tvshow.service";
 import { DeleteTvShowUseCase } from "src/modules/core/application/usecases/DeleteTvShowUseCase";
 import { TvShowController } from "src/modules/core/infra/controllers/TvShow.controller";
-import { ActorRepository } from "src/modules/core/infra/repository/impl/ActorRepository";
 import { TvShowRepository } from "src/modules/core/infra/repository/impl/TvShowRepository";
 import { AuthInterceptor } from "src/shared/core/interceptors/Auth.interceptor";
-import { createActorDTOMocks } from "test/mocks/core/ActorMocks";
 import { createtvShowMock } from "test/mocks/core/TvShowMocks";
 
 const statusResponseMock = {
@@ -38,9 +34,9 @@ describe("", () => {
           useValue: {},
         },
         {
-          provide: CreateTvShowUseCase,
+          provide: TvShowService,
           useValue: {
-            execute: jest.fn((x) => x),
+            createTvShow: jest.fn((x) => x),
           },
         },
         {

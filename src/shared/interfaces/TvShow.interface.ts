@@ -14,6 +14,6 @@ export class ICreateTvShow {
   country: string;
   seasons: number;
   genre: string;
-  actors: string[];
-  episodes: ITvShowEpisodes[];
+  actors?: string[];
+  episodes?: ITvShowEpisodes[];
 }

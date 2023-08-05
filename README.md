@@ -1,4 +1,4 @@
-# BOILERPLATE-API
+# TEKEVER-API
 
 Este boilerplate tem como objetivo implementar uma arquitetura voltada para o Domain-Driven Desing, ou DDD para os mais próximos.
 

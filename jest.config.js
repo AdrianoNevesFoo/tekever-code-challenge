@@ -31,7 +31,7 @@ module.exports = {
   coveragePathIgnorePatterns: [
     "/node_modules/",
     "/src/shared/",
-    "/src/modules/messages/",
+    "/src/modules/tasks/",
     "/src/modules/core/application/OnModuleInit.ts",
     ".module.ts",
     "main.ts",
