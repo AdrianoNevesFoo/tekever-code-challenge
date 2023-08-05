@@ -70,11 +70,6 @@ typings/
 .yarn-integrity
 
 # dotenv environment variables file
-.env.test
-.env
-dev.env
-hml.env
-prod.env
 
 .vscode
 
