@@ -40,8 +40,6 @@ export abstract class BaseEntityController extends BaseController {
   }
 
   @Get("paginate")
-  // @UseInterceptors(HttpCacheInterceptor)
-  // @CacheTTL(300)
   @ApiHeader({
     name: "Authorization",
     description: "Bearer token",
@@ -149,6 +147,8 @@ export abstract class BaseEntityController extends BaseController {
   }
 
   @Get("")
+  @UseInterceptors(HttpCacheInterceptor)
+  @CacheTTL(300)
   @ApiHeader({
     name: "Authorization",
     description: "Bearer token",

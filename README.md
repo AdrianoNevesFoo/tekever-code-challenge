@@ -1,6 +1,30 @@
 # TEKEVER-API
 
-Este boilerplate tem como objetivo implementar uma arquitetura voltada para o Domain-Driven Desing, ou DDD para os mais próximos.
+Este projeto foi desenvolvido como um teste, com o objetivo de demonstar habilidades para avaliação de conhecimento.
+
+## Linguagem
+
+Este projeto foi desenvolvido em NodeJs, utilizando o framework NestJS.
+
+## Conceitos
+
+A arquitetura aqui desenvolvida foi pensada com base em conceitos latentes do desenvolvimento de código, aplicando padrões de projeto e conceitos fundamentais como: Clean Architecture, DDD, SOLID, entre outros.
+
+## Arquitetura
+
+![Alt text](arquitetura.png)
+
+## Start da aplicação
+
+Para iniciar o projeto execute os seguintes comandos:
+
+1. execute o comando `yarn`
+2. execute o comando `yarn build`
+3. execute o camando `yarn migration:generate Teste` (um banco SQLite em memória será criado pelo TypeORM)
+4. execute o comando `yarn build` novamente
+5. execute o comando `yarn migration:run`
+6. execute o comando `yarn start:dev` e aplicação será disponibilizada no `http://localhost:3000`
+7. faça uma requisição `POST` no endereço `http://localhost:3000/messages/new`, com um corpo similar:
 
 ## Comandos da aplicação
 
