@@ -12,7 +12,7 @@ A arquitetura aqui desenvolvida foi pensada com base em conceitos latentes do de
 
 ## Arquitetura
 
-![Alt text](arquitetura.png)
+![Alt text](blob:https://whimsical.com/d14b9903-ab81-4e0e-a00b-5584a76dadc0)
 
 ## Start da aplicação
 
