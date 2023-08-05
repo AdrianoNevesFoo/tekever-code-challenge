@@ -12,19 +12,83 @@ A arquitetura aqui desenvolvida foi pensada com base em conceitos latentes do de
 
 ## Arquitetura
 
-![Alt text](https://whimsical.com/d14b9903-ab81-4e0e-a00b-5584a76dadc0)
+![Alt text](arquitetura.png)
+
+Na figura abaixo encontra-se um exemplo da arquitetura pensada e desenvolvida para esse desafio.
+Aqui encontramos uma arquitetura baseada em micro-serviços, disponibilizando os seguintes serviços:
+
+- Keycloak: serviço de autenticação
+- Tekever: api tekever desenvolvida para este desafio.
+
+### Bancos da dados
+
+Para que os serviços aqui apresentados executem corretamente, é necessário o fornecimento dos seguintes bancos de dados:
+
+- Mysql: banco de dados utilizado para armazenar os dados da aplicação
+- Redis: banco de dados utilizado para cache
 
 ## Start da aplicação
 
-Para iniciar o projeto execute os seguintes comandos:
+### Yarn
 
-1. execute o comando `yarn`
-2. execute o comando `yarn build`
-3. execute o camando `yarn migration:generate Teste` (um banco SQLite em memória será criado pelo TypeORM)
-4. execute o comando `yarn build` novamente
-5. execute o comando `yarn migration:run`
-6. execute o comando `yarn start:dev` e aplicação será disponibilizada no `http://localhost:3000`
-7. faça uma requisição `POST` no endereço `http://localhost:3000/messages/new`, com um corpo similar:
+Para iniciar o projeto utilziando o yarn, precisamos primeiramente subir os bancos de dados da aplicação. Para isso, execute o docker-compose abaixo exemplificado:
+
+```yml
+version: "3"
+
+services:
+  mysql:
+    container_name: mysql
+    image: "mysql/mysql-server:8.0"
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_ROOT_HOST: "%"
+      MYSQL_DATABASE: "tekever-database"
+      MYSQL_USER: "tekever"
+      MYSQL_PASSWORD: "password"
+      MYSQL_PORT: "3306:3306"
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+    volumes:
+      - db:/var/lib/mysql
+
+  redis:
+    container_name: cache
+    image: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis:/data
+volumes:
+  redis:
+    driver: local
+  db:
+```
+
+Para executar o docker compose, execute o seguinte comando:
+
+```bash
+  docker-compose up -d
+```
+
+Após subir os bancos de dados, estamos prontos para iniciar o projeto. Para isso, execute os seguintes comandos em sequência, dentro da pasta do projeto:
+
+```bash
+  yarn
+  yarn build
+  yarn migrate-generate
+  yarn migrate-push
+  yarn start:dev
+```
+
+### Swagger
+
+Após subir a aplicação, é possível visualizar a documentação swagger do projeto através do link:
+
+```
+  localhost:9000/api/docs
+```
 
 ## Comandos da aplicação
 
