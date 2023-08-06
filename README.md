@@ -20,12 +20,11 @@ Aqui encontramos uma arquitetura baseada em micro-serviços, disponibilizando os
 - Keycloak: serviço de autenticação
 - Tekever: api tekever desenvolvida para este desafio.
 
-### Bancos da dados
+### Banco da dados
 
-Para que os serviços aqui apresentados executem corretamente, é necessário o fornecimento dos seguintes bancos de dados:
+Para que os serviços aqui apresentados executem corretamente, é necessário o fornecimento do seguinte banco de dados:
 
 - Mysql: banco de dados utilizado para armazenar os dados da aplicação
-- Redis: banco de dados utilizado para cache
 
 ## Start da aplicação
 
@@ -52,17 +51,7 @@ services:
       MYSQL_ALLOW_EMPTY_PASSWORD: 1
     volumes:
       - db:/var/lib/mysql
-
-  redis:
-    container_name: cache
-    image: redis
-    ports:
-      - "6379:6379"
-    volumes:
-      - redis:/data
 volumes:
-  redis:
-    driver: local
   db:
 ```
 
@@ -109,20 +98,11 @@ services:
     volumes:
       - db:/var/lib/mysql
 
-  redis:
-    container_name: cache
-    image: redis
-    ports:
-      - "6379:6379"
-    volumes:
-      - redis:/data
-
   tekever-code-challenge:
     container_name: tekever-api
     image: "adrianonevesps/tekever:latest"
     depends_on:
       - mysql
-      - redis
     ports:
       - "9000:9000"
     environment:
@@ -137,10 +117,7 @@ services:
       KEYCLOAK_REALM: tekever
       KEYCLOAK_REALM_PUBLIC_KEY: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvW/DPY8s/kGfToR/YNc/50GxPWYmUZkjGy719XVFkGL42H3eXl7iBiXRRtFyhSuIe8w/knnqxJUylD5a5xeAWTDsY7GcCQLZDQ+QbvoheEjmmeibgW1TRpMexRuE+074dDvgYjl8sntwOBre77jdOzO4D0qteJ2PzwyaowVzJbK3NPRJrHSvZDtLUoB23nBn75zq8JntuWNGSk7Zddf5EeKljvbJe9V84UFTnyU/2PUg0r819TpNI4QMCe3rylY//g01PNvPOve267ahrLp7McH9Rl9roKPx7OqaRx6TszX8VZqXQAyDpXBOPeXuvRwkkWrTSn2HdsbJ1XBqvGSVFQIDAQAB
       DATABASE_URL: "mysql://root:root@mysql:3306/tekever-database?schema=public"
-      REDIS_HOST: redis
 volumes:
-  redis:
-    driver: local
   db:
 ```
 
@@ -170,12 +147,4 @@ KEYCLOAK_MASTER_PASSWORD=tekever
 KEYCLOAK_MASTER_CLIENT_ID=admin-cli
 KEYCLOAK_REALM=tekever
 KEYCLOAK_REALM_PUBLIC_KEY=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvW/DPY8s/kGfToR/YNc/50GxPWYmUZkjGy719XVFkGL42H3eXl7iBiXRRtFyhSuIe8w/knnqxJUylD5a5xeAWTDsY7GcCQLZDQ+QbvoheEjmmeibgW1TRpMexRuE+074dDvgYjl8sntwOBre77jdOzO4D0qteJ2PzwyaowVzJbK3NPRJrHSvZDtLUoB23nBn75zq8JntuWNGSk7Zddf5EeKljvbJe9V84UFTnyU/2PUg0r819TpNI4QMCe3rylY//g01PNvPOve267ahrLp7McH9Rl9roKPx7OqaRx6TszX8VZqXQAyDpXBOPeXuvRwkkWrTSn2HdsbJ1XBqvGSVFQIDAQAB
-```
-
-## CACHE
-
-Neste projeto, foi umplementado um processo de cache, utilziando a biblioteca 'cache-manager-redis-store'. O cache está configurado em todas as requisições '/findAll', deste projeto. Assim como apresentado no swagger da aplicação, para realizar uma requisição do tipo findAll, basta realizar uma requisição GET para o recurso desejado, assim como apresentado abaixo:
-
-```
-  http://localhost:9000/tvshow
 ```

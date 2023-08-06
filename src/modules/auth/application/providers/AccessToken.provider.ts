@@ -38,6 +38,7 @@ export class AccessTokenProvider extends BaseKeycloakProvider {
         return result.data;
       })
       .catch((err) => {
+        console.log(JSON.stringify(err));
         throw new AppError(
           "Não foi possível realizar o login. Verifique seu usuário e senha.",
           403,

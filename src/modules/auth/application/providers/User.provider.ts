@@ -70,6 +70,7 @@ export class UserProvider {
         };
       })
       .catch((error) => {
+        console.log(JSON.stringify(error));
         throw new AppError("Erro ao criar usuário", 400);
       });
   }
