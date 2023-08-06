@@ -7,7 +7,7 @@ export class TvShowCrawlerSchedule {
   @Inject(EventEmitter2)
   private eventEmitter: EventEmitter2;
 
-  @Cron(CronExpression.EVERY_MINUTE)
+  @Cron(CronExpression.EVERY_5_MINUTES)
   updateTelemetry() {
     try {
       this.eventEmitter.emit("crawler.tvshow");
