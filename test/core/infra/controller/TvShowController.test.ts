@@ -1,5 +1,4 @@
 import { faker } from "@faker-js/faker";
-import { CACHE_MANAGER } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { Test } from "@nestjs/testing";
 import { Response } from "express";
@@ -68,10 +67,6 @@ describe("", () => {
         },
         {
           provide: JwtService,
-          useValue: {},
-        },
-        {
-          provide: CACHE_MANAGER,
           useValue: {},
         },
         {

@@ -1,4 +1,4 @@
-import { CacheModule, Module } from "@nestjs/common";
+import { Module } from "@nestjs/common";
 import { EventEmitterModule } from "@nestjs/event-emitter";
 import { ConfigModule } from "@nestjs/config";
 import { ClsModule } from "nestjs-cls";
@@ -14,19 +14,12 @@ import {
 import { APP_FILTER, APP_GUARD } from "@nestjs/core";
 import { AllExceptionsFilter } from "./shared/core/filters/AllExceptions.filter";
 import { CoreModule } from "./modules/core/core.module";
-import * as redisStore from "cache-manager-redis-store";
 import { TasksModule } from "./modules/tasks/tasks.module";
 import { ScheduleModule } from "@nestjs/schedule";
 
 const ENV = process.env.NODE_ENV;
 @Module({
   imports: [
-    CacheModule.register({
-      isGlobal: true,
-      store: redisStore,
-      host: process.env.REDIS_HOST,
-      port: 6379,
-    }),
     ConfigModule.forRoot({
       envFilePath: !ENV ? ".env.dev" : `.${ENV}.env`,
     }),

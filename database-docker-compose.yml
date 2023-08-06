@@ -16,15 +16,5 @@ services:
       MYSQL_ALLOW_EMPTY_PASSWORD: 1
     volumes:
       - db:/var/lib/mysql
-
-  redis:
-    container_name: cache
-    image: redis
-    ports:
-      - "6379:6379"
-    volumes:
-      - redis:/data
 volumes:
-  redis:
-    driver: local
   db:

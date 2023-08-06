@@ -1,6 +1,4 @@
 import {
-  CacheInterceptor,
-  CacheTTL,
   DefaultValuePipe,
   Get,
   Inject,
@@ -9,9 +7,7 @@ import {
   ParseIntPipe,
   Query,
   Res,
-  UseInterceptors,
 } from "@nestjs/common";
-import { Public } from "nest-keycloak-connect";
 import { Response } from "express";
 import { BaseController } from "./BaseController";
 import { BaseRepository } from "src/shared/core/Base.repository";
@@ -22,7 +18,6 @@ import {
   ApiQuery,
   ApiResponse,
 } from "@nestjs/swagger";
-import { HttpCacheInterceptor } from "src/shared/core/interceptors/HttpCacheInterceptor";
 import {
   FindBaseResponseDTO,
   InvalidCredentialsResponseDTO,
@@ -87,7 +82,6 @@ export abstract class BaseEntityController extends BaseController {
     @Query("include", new DefaultValuePipe({})) include: string,
     @Query("orderBy", new DefaultValuePipe({})) orderBy: string
   ) {
-    console.log("SEM CACHE!");
     const isEmpty = relations && relations.length > 0;
     const isEmptyInclude = include && include.length > 0;
     const isEmptyOrderBy = orderBy && orderBy.length > 0;
@@ -147,8 +141,6 @@ export abstract class BaseEntityController extends BaseController {
   }
 
   @Get("")
-  @UseInterceptors(HttpCacheInterceptor)
-  @CacheTTL(300)
   @ApiHeader({
     name: "Authorization",
     description: "Bearer token",
